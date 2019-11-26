@@ -1,4 +1,4 @@
-function constrain(val, min, max) {
+function constrain(val, min, max) { // used in moving player around
 	if (val > max) {
 		val = max;
 	}
@@ -37,9 +37,25 @@ class Player {
 	}
 }
 
-let base_y = Math.floor($(window).height() /2);
+// determine where to draw the ground
+let base_y = Math.floor($(window).height()*2 /3);
 
 let player = new Player('player');
+
+// set up background
+let sky = document.getElementById('sky');
+let ground = document.getElementById('ground');
+
+sky.style.width = $(window).width() + 'px';
+sky.style.height = $(window).height() + 'px';
+sky.style.top = '0px';
+sky.style.left = '0px';
+
+ground.style.width = $(window).width() + 'px';
+ground.style.height = $(window).height() - (base_y + player.rep.clientHeight) + 'px';
+ground.style.top = base_y + player.rep.clientHeight + 'px';
+ground.style.left = '0px';
+
 let keys = {};
 
 player.rep.style.top = base_y + 'px';

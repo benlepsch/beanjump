@@ -3,3 +3,13 @@
     height: 50px;
     width: 50px;
 }
+
+.ground {
+    background-color: #19e03a;
+    position: absolute;
+}
+
+.sky {
+    background-color: #19869c;
+    position: absolute;
+}
