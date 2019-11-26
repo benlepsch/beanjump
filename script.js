@@ -8,6 +8,7 @@ function constrain(val, min, max) { // used in moving player around
 	return val;
 }
 
+// handle player movement basically
 class Player {
 	constructor(id) {
 		this.id = id;
@@ -30,7 +31,15 @@ class Player {
 		console.log("accel: " + this.accelX + "\tvel: " + this.velocityX);
 
 		this.velocityX = Math.floor(this.velocityX/2);
+		//if (fabs(this.velocityX) < 2) {
+		//	this.velocityX = 0;
+		//}
 		this.accelX = 0;
+
+		if ((parseInt(this.rep.style.left) <= 1 && this.velocityX < 0) || (parseInt(this.rep.style.left) + this.clientWidth >= $(window).width()) && this.velocityX > 0) {
+			this.velocityX = 0;
+			this.accelX = 0;
+		}
 
 		this.rep.style.left = parseInt(this.rep.style.left) + this.velocityX + 'px';
 		this.rep.style.top = constrain(parseInt(this.rep.style.top) + this.velocityY, 0, base_y) + 'px';
@@ -50,6 +59,8 @@ sky.style.width = $(window).width() + 'px';
 sky.style.height = $(window).height() + 'px';
 sky.style.top = '0px';
 sky.style.left = '0px';
+
+console.log($(window).width());
 
 ground.style.width = $(window).width() + 'px';
 ground.style.height = $(window).height() - (base_y + player.rep.clientHeight) + 'px';
