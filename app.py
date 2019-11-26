@@ -1,3 +1,8 @@
+"""
+    this is all the server side code I need because this version is single player
+    in the future i'll rework it to be multiplayer i think
+"""
+
 from flask import Flask, render_template
 
 app = Flask(__name__)
