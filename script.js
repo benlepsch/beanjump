@@ -8,6 +8,36 @@ function constrain(val, min, max) { // used in moving player around
 	return val;
 }
 
+class VegetableManager {
+	constructor() {
+		this.veggies = []; // holds Vegetable objects
+		this.onVeg = 0; // indexes vegetables
+		this.begin = new Date().getTime();
+	}
+
+	add() {
+		this.veggies[this.onVeg] = new Vegetable(this.onVeg);
+		
+		// need to set a type
+		// this will vary based on how long the game has been going on. 0-10 seconds only onions, then peppers and onions until 20 seconds, then all three.
+
+		this.onVeg ++;
+	}
+
+	// if a new veg is to be added
+	isTime() {
+		let dt = Math.round((new Date().getTime() - this.begin)/1000); // delta milliseconds to seconds
+		
+	}
+}
+
+class Vegetable {
+	constructor(id) {
+		this.id = id;
+		
+	}
+}
+
 // handle player movement basically
 class Player {
 	constructor(id) {
@@ -56,6 +86,7 @@ class Player {
 let base_y = Math.floor($(window).height()*2 /3);
 
 let player = new Player('player');
+let vm = new VegetableManager();
 
 // set up background
 let sky = document.getElementById('sky');
