@@ -15,11 +15,11 @@ class Player {
 		this.velocityX = 0;
 		this.velocityY = 0;
 		this.accelX = 0;
-		this.accelY = 1; //gravity
+		this.accelY = 1.5; //gravity
 
 		this.maxAccelX = 10;
-		this.maxVelX = 20;
-		this.maxVelY = 23;
+		this.maxVelX = 25;
+		this.maxVelY = 28;
 
 		this.rep = document.getElementById(this.id);
 		this.rep.style.left = '0px';
@@ -101,11 +101,27 @@ function checkKeys() {
 	}
 }
 
-function main() {
-	//console.log(keys);
-	checkKeys();
-	player.update();
-	requestAnimationFrame(main);
+//runs the game at a specified fps
+//dont touch i dont know how it works
+
+let fpsInterval, then, startTime, elapsed;
+function startGame(fps) {
+    fpsInterval = 1000 / fps;
+    then = Date.now();
+    startTime = then;
+    runGame();
 }
 
-main();
+function runGame() {
+    requestAnimationFrame(runGame);
+    now = Date.now();
+    elapsed = now - then;
+
+    if (elapsed > fpsInterval) {
+		then = now - (elapsed % fpsInterval);
+		checkKeys();
+		player.update();
+    }
+}
+
+startGame(60);
