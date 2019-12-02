@@ -36,7 +36,16 @@ class Player {
 		//}
 		this.accelX = 0;
 
-		if ((parseInt(this.rep.style.left) <= 1 && this.velocityX < 0) || (parseInt(this.rep.style.left) + this.clientWidth >= $(window).width()) && this.velocityX > 0) {
+		// if it's going off the left side of the screen
+		if (parseInt(this.rep.style.left) <= 0 && this.velocityX < 0) {
+			this.rep.style.left = '0px';
+			this.velocityX = 0;
+			this.accelX = 0;
+		}
+
+		// if it's going off the right side
+		if (parseInt(this.rep.style.left) + this.rep.clientWidth > $(window).width()) {
+			this.rep.style.left = $(window).width() - this.rep.clientWidth + 'px';
 			this.velocityX = 0;
 			this.accelX = 0;
 		}
