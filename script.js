@@ -30,10 +30,7 @@ class Player {
 		this.velocityY = constrain(this.velocityY + this.accelY, -1*this.maxVelY, this.maxVelY);
 		console.log("accel: " + this.accelX + "\tvel: " + this.velocityX);
 
-		this.velocityX = Math.floor(this.velocityX/2);
-		//if (fabs(this.velocityX) < 2) {
-		//	this.velocityX = 0;
-		//}
+		this.velocityX = this.velocityX < 0 ? Math.ceil(this.velocityX/2) : Math.floor(this.velocityX/2);
 		this.accelX = 0;
 
 		// if it's going off the left side of the screen
