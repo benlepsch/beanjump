@@ -18,8 +18,8 @@ class Player {
 		this.accelY = 1; //gravity
 
 		this.maxAccelX = 10;
-		this.maxVelX = 40;
-		this.maxVelY = 100;
+		this.maxVelX = 20;
+		this.maxVelY = 23;
 
 		this.rep = document.getElementById(this.id);
 		this.rep.style.left = '0px';
@@ -90,7 +90,7 @@ window.onkeyup = function(e) {
 function checkKeys() {
 	if (keys[87]) {
 		if (parseInt(player.rep.style.top) == base_y) {
-			player.velocityY = -20;
+			player.velocityY = -1 * player.maxVelY;
 		}
 	}
 	if (keys[65]) {
