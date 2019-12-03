@@ -41,6 +41,9 @@ class VegetableManager {
 		
 		this.veggies[this.onVeg].direction = ['right','left'][Math.floor(Math.random()*2)];
 
+		// handles creating the image and blitting into the right spot
+		this.veggies[this.onVeg].init();
+
 		// then set a new cooldown
 		// oh god
 		// so at max i want maybe a couple every 60 frames/1 second, so cooldown between 30-60?
@@ -56,6 +59,7 @@ class VegetableManager {
 			this.lowerTick -= 2*dt;
 		}
 
+		// set cooldown from lowerTick to double lowerTick, so 30 to 60 or 200 to 400 etc
 		this.cooldown = Math.round(Math.random() * this.lowerTick) + this.lowerTick;
 
 		this.onVeg ++;
@@ -74,12 +78,21 @@ class VegetableManager {
 			return false;
 		}
 	}
+
+	// update the vegetals
+	update() {
+
+	}
 }
 
 class Vegetable {
 	constructor(id) {
 		this.id = id;
-		
+	}
+
+	// create the image and blit onto screen
+	init() {
+
 	}
 }
 
