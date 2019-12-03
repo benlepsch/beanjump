@@ -14,10 +14,13 @@ class VegetableManager {
 		this.onVeg = 0; // indexes vegetables
 		this.begin = new Date().getTime();
 		this.cooldown = 0;
+		this.lowerTick = 200;
 	}
 
 	add() {
-		let dt = Math.round((new Date().getTime() - this.begin)/1000); // delta milliseconds to seconds, used for generating cooldown
+		let current = new Date().getTime()
+		let dt = Math.round((current - this.begin)/1000); // delta milliseconds to seconds, used for generating cooldown
+		this.begin = current;
 
 		this.veggies[this.onVeg] = new Vegetable(this.onVeg);
 		
@@ -27,9 +30,20 @@ class VegetableManager {
 		// then set a new cooldown
 		// oh god
 		// so at max i want maybe a couple every 60 frames/1 second, so cooldown between 30-60?
-		// at the start idk dude maybe cooldown of 300-500 or something
+		// at the start idk dude maybe cooldown of 200-400 or something
 		// but how do i scale that
+		// after 60 seconds i want max speed
+		// so 60 seconds for delta 120 ticks
+		// for every second decrease lower tick by 2
 		
+		if (this.lowerTick - 2*dt < 30) {
+			this.lowerTick = 30;
+		} else {
+			this.lowerTick -= 2*dt;
+		}
+
+		this.cooldown = Math.round(Math.random() * this.lowerTick) + this.lowerTick;
+
 		this.onVeg ++;
 	}
 
@@ -39,9 +53,10 @@ class VegetableManager {
 		// like
 		// depending on the time since the start of the game it will pick a random number of game ticks to loop thru until it spawns another veggie
 		// then when cooldown = 0 it spawns a veg and pick a new number
-		if (this.cooldown == 0) {
+		if (this.cooldown <= 0) {
 			return true;
 		} else {
+			this.cooldown --;
 			return false;
 		}
 	}
@@ -74,7 +89,7 @@ class Player {
 	update() {
 		this.velocityX = constrain(this.velocityX + this.accelX, -1*this.maxVelX, this.maxVelX);
 		this.velocityY = constrain(this.velocityY + this.accelY, -1*this.maxVelY, this.maxVelY);
-		console.log("accel: " + this.accelX + "\tvel: " + this.velocityX);
+		//console.log("accel: " + this.accelX + "\tvel: " + this.velocityX);
 
 		this.velocityX = this.velocityX < 0 ? Math.ceil(this.velocityX/2) : Math.floor(this.velocityX/2);
 		this.accelX = 0;
@@ -113,7 +128,7 @@ sky.style.height = $(window).height() + 'px';
 sky.style.top = '0px';
 sky.style.left = '0px';
 
-console.log($(window).width());
+//console.log($(window).width());
 
 ground.style.width = $(window).width() + 'px';
 ground.style.height = $(window).height() - (base_y + player.rep.clientHeight) + 'px';
@@ -168,6 +183,9 @@ function runGame() {
 		then = now - (elapsed % fpsInterval);
 		checkKeys();
 		player.update();
+		if (vm.isTime()) {
+			vm.add();
+		}
     }
 }
 
