@@ -120,9 +120,9 @@ class Vegetable {
 		if (this.type == 'onion') {
 			this.rep.style.top = base_y + player.rep.clientHeight - 100 + 'px'; //- this.rep.clientHeight + player.rep.clientHeight + 'px';
 		} else if (this.type == 'cabbage') {
-			this.rep.style.top = base_y + player.rep.clientHeight + 'px'; //- this.rep.clientHeight - 30 + player.rep.clientHeight + 'px';
+			this.rep.style.top = base_y + player.rep.clientHeight - 140 + 'px'; //- this.rep.clientHeight - 30 + player.rep.clientHeight + 'px';
 		} else if (this.type == 'carrot') {
-			this.rep.style.top = base_y + player.rep.clientHeight + 'px'; //- this.rep.clientHeight - 150 + player.rep.clientHeight + 'px';
+			this.rep.style.top = base_y + player.rep.clientHeight - 280 + 'px'; //- this.rep.clientHeight - 150 + player.rep.clientHeight + 'px';
 		}
 
 		if (this.direction == 'Right') {
