@@ -16,6 +16,7 @@ class VegetableManager {
 		this.last = this.begin;
 		this.cooldown = 0;
 		this.lowerTick = 200;
+		this.types = ['onion','cabbage','carrot'];
 	}
 
 	add() {
@@ -27,6 +28,18 @@ class VegetableManager {
 		
 		// need to set a type
 		// this will vary based on how long the game has been going on. 0-10 seconds only onions, then peppers and onions until 20 seconds, then all three.
+
+		// set a random type depending on how long the game has been going for
+		let since = Math.round((current - this.begin)/1000);
+		if (since < 10) {
+			this.veggies[this.onVeg].type = this.types[0];
+		} else if (since < 20) {
+			this.veggies[this.onVeg].type = this.types[Math.floor(Math.random()*2)];
+		} else {
+			this.veggies[this.onVeg].type = this.types[Math.floor(Math.random()*3)];
+		}
+		
+		this.veggies[this.onVeg].direction = ['right','left'][Math.floor(Math.random()*2)];
 
 		// then set a new cooldown
 		// oh god
