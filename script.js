@@ -88,9 +88,24 @@ class VegetableManager {
 		}
 	}
 	
+	// remove for veggies that go off the side
 	remove(id) {
 		document.body.removeChild(this.veggies[parseInt(id)].rep);
 		this.veggies[parseInt(id)] = null;
+	}
+
+	// remove for veggies that get killed
+	// separate function right now because i want to make it fall off like the real game later
+	kill(id) {
+		this.remove(id);
+	}
+
+	checkCollision() {
+		for (let i = 0; i < this.veggies.length; i++) {
+			if (this.veggies[i] != null && this.veggies[i] != undefined) {
+				this.veggies[i].colliding(player);
+			}
+		}
 	}
 }
 
@@ -98,7 +113,7 @@ class Vegetable {
 	constructor(id) {
 		this.id = id;
 		this.alive = true;
-		this.speed = Math.floor(Math.random() * 3) + 4;
+		this.speed = Math.floor(Math.random() * 8) + 4;
 	}
 
 	// create the image and blit onto screen
@@ -141,6 +156,32 @@ class Vegetable {
 		}
 	}
 
+	// if killing player, kill him and then reset the game
+	// if dying, add player y acceleration and then remove
+	colliding(p) {
+		// i'm going to collision detect after the player gets a little bit inside of the veg because that's how the real game looks
+		// ok then
+
+		// if the player is above the veg and a little inside, but not too much, AND its top is wholly above it
+		// if the player's bottom is a little below the veggie's top
+		//console.log('ptop: ' + p.rep.style.top + '\tpheight: ' + p.rep.clientHeight + '\tvegtop: ' + this.rep.style.top);
+		if (parseInt(p.rep.style.top) + p.rep.clientHeight > parseInt(this.rep.style.top) && parseInt(p.rep.style.top) + p.rep.clientHeight/2 < parseInt(this.rep.style.top)) {
+			//console.log('bruh');
+
+			// make sure it's at least partially over it
+			// right corner over it, both over it, left over it
+			if ((parseInt(p.rep.style.left) + p.rep.clientWidth > parseInt(this.rep.style.left) && parseInt(p.rep.style.left) < parseInt(this.rep.style.left)) ||
+			 (parseInt(p.rep.style.left) > parseInt(this.rep.style.left) && parseInt(p.rep.style.left) + p.rep.clientWidth < parseInt(this.rep.style.left) + this.rep.clientWidth) ||
+			 (parseInt(p.rep.style.left) > parseInt(this.rep.style.left) && parseInt(p.rep.style.left) < parseInt(this.rep.style.left) + this.rep.clientWidth)) {
+				//console.log('HIT');
+				// kill the vegetable and increase player's acceleration
+				p.velocityY = -1 * p.maxVelY;
+				vm.kill(this.id);
+			 }
+		}
+
+	}
+
 	summon(direction) {
 		this.rep = document.createElement('img');
 		this.rep.classList.add('vegetable');
@@ -163,7 +204,9 @@ class Player {
 		this.maxVelY = 28;
 
 		this.rep = document.getElementById(this.id);
-		this.rep.style.left = '0px';
+		this.rep.style.left = Math.round($(window).width()/2) + 'px';
+		
+		this.alive = true;
 	}
 
 	update() {
@@ -252,7 +295,7 @@ function startGame(fps) {
 	document.body.removeChild(cabbage.rep);
 	document.body.removeChild(carrot.rep);
 
-	document.body.removeChild(document.getElementById('start'));
+	document.getElementById('start').style.display = 'none';
 	document.getElementById('sky').style.display = 'block';
 	document.getElementById('ground').style.display = 'block';
 	document.getElementById('player').style.display = 'block';
@@ -277,7 +320,18 @@ function runGame() {
 			vm.add();
 		}
 		vm.update();
+		vm.checkCollision();
     }
+}
+
+function reset() {
+	onion.summon('Left');
+	cabbage.summon('Left');
+	carrot.summon('Left');
+	document.getElementById('start').style.display = 'block';
+	document.getElementById('sky').style.display = 'none';
+	document.getElementById('ground').style.display = 'none';
+	document.getElementById('player').style.display = 'none';
 }
 
 let onion = new Vegetable('onion');
