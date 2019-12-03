@@ -81,13 +81,24 @@ class VegetableManager {
 
 	// update the vegetals
 	update() {
-
+		for (let i = 0; i < this.veggies.length; i++) {
+			if (this.veggies[i] != null && this.veggies[i] != undefined) {
+				this.veggies[i].update();
+			}
+		}
+	}
+	
+	remove(id) {
+		document.body.removeChild(this.veggies[parseInt(id)].rep);
+		this.veggies[parseInt(id)] = null;
 	}
 }
 
 class Vegetable {
 	constructor(id) {
 		this.id = id;
+		this.alive = true;
+		this.speed = Math.floor(Math.random() * 3) + 4;
 	}
 
 	// create the image and blit onto screen
@@ -103,6 +114,30 @@ class Vegetable {
 			this.rep.style.left = -1 * this.rep.clientWidth + 'px';
 		} else {
 			this.rep.style.left = 1 + $(window).width() + 'px';
+		}
+
+		// get the y right, this never needs to be changed
+		if (this.type == 'onion') {
+			this.rep.style.top = base_y + player.rep.clientHeight - 100 + 'px'; //- this.rep.clientHeight + player.rep.clientHeight + 'px';
+		} else if (this.type == 'cabbage') {
+			this.rep.style.top = base_y + player.rep.clientHeight + 'px'; //- this.rep.clientHeight - 30 + player.rep.clientHeight + 'px';
+		} else if (this.type == 'carrot') {
+			this.rep.style.top = base_y + player.rep.clientHeight + 'px'; //- this.rep.clientHeight - 150 + player.rep.clientHeight + 'px';
+		}
+
+		if (this.direction == 'Right') {
+			this.speed *= -1;
+		}
+	}
+
+	update() {
+		if (this.alive) {
+			this.rep.style.left = parseInt(this.rep.style.left) + this.speed + 'px';
+		}
+
+		// if its off the screen
+		if (parseInt(this.rep.style.left) > $(window).width() || parseInt(this.rep.style.left) + this.rep.clientWidth < 0) {
+			vm.remove(this.id);
 		}
 	}
 
@@ -241,6 +276,7 @@ function runGame() {
 		if (vm.isTime()) {
 			vm.add();
 		}
+		vm.update();
     }
 }
 
