@@ -100,10 +100,17 @@ class Vegetable {
 
 		// starts from left side
 		if (this.direction == 'Left') {
-			this.rep.style.left = '-300px';
+			this.rep.style.left = -1 * this.rep.clientWidth + 'px';
 		} else {
 			this.rep.style.left = 1 + $(window).width() + 'px';
 		}
+	}
+
+	summon(direction) {
+		this.rep = document.createElement('img');
+		this.rep.classList.add('vegetable');
+		this.rep.src = 'images/' + this.id + direction + '.png';
+		document.body.appendChild(this.rep);
 	}
 }
 
@@ -206,6 +213,10 @@ function checkKeys() {
 
 let fpsInterval, then, startTime, elapsed;
 function startGame(fps) {
+	document.body.removeChild(onion.rep);
+	document.body.removeChild(cabbage.rep);
+	document.body.removeChild(carrot.rep);
+
 	document.body.removeChild(document.getElementById('start'));
 	document.getElementById('sky').style.display = 'block';
 	document.getElementById('ground').style.display = 'block';
@@ -232,5 +243,12 @@ function runGame() {
 		}
     }
 }
+
+let onion = new Vegetable('onion');
+let cabbage = new Vegetable('cabbage');
+let carrot = new Vegetable('carrot');
+onion.summon('Left');
+cabbage.summon('Left');
+carrot.summon('Left');
 
 //startGame(60);
