@@ -13,21 +13,37 @@ class VegetableManager {
 		this.veggies = []; // holds Vegetable objects
 		this.onVeg = 0; // indexes vegetables
 		this.begin = new Date().getTime();
+		this.cooldown = 0;
 	}
 
 	add() {
+		let dt = Math.round((new Date().getTime() - this.begin)/1000); // delta milliseconds to seconds, used for generating cooldown
+
 		this.veggies[this.onVeg] = new Vegetable(this.onVeg);
 		
 		// need to set a type
 		// this will vary based on how long the game has been going on. 0-10 seconds only onions, then peppers and onions until 20 seconds, then all three.
 
+		// then set a new cooldown
+		// oh god
+		// so at max i want maybe a couple every 60 frames/1 second, so cooldown between 30-60?
+		// at the start idk dude maybe cooldown of 300-500 or something
+		// but how do i scale that
+		
 		this.onVeg ++;
 	}
 
-	// if a new veg is to be added
+	// decide if a new veg is to be added
 	isTime() {
-		let dt = Math.round((new Date().getTime() - this.begin)/1000); // delta milliseconds to seconds
-		
+		// i'm going to add a cooldown here
+		// like
+		// depending on the time since the start of the game it will pick a random number of game ticks to loop thru until it spawns another veggie
+		// then when cooldown = 0 it spawns a veg and pick a new number
+		if (this.cooldown == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
 
