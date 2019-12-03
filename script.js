@@ -13,14 +13,15 @@ class VegetableManager {
 		this.veggies = []; // holds Vegetable objects
 		this.onVeg = 0; // indexes vegetables
 		this.begin = new Date().getTime();
+		this.last = this.begin;
 		this.cooldown = 0;
 		this.lowerTick = 200;
 	}
 
 	add() {
 		let current = new Date().getTime()
-		let dt = Math.round((current - this.begin)/1000); // delta milliseconds to seconds, used for generating cooldown
-		this.begin = current;
+		let dt = Math.round((current - this.last)/1000); // delta milliseconds to seconds, used for generating cooldown
+		this.last = current;
 
 		this.veggies[this.onVeg] = new Vegetable(this.onVeg);
 		
