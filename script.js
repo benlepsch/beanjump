@@ -39,7 +39,7 @@ class VegetableManager {
 			this.veggies[this.onVeg].type = this.types[Math.floor(Math.random()*3)];
 		}
 		
-		this.veggies[this.onVeg].direction = ['right','left'][Math.floor(Math.random()*2)];
+		this.veggies[this.onVeg].direction = ['Right','Left'][Math.floor(Math.random()*2)];
 
 		// handles creating the image and blitting into the right spot
 		this.veggies[this.onVeg].init();
@@ -91,8 +91,19 @@ class Vegetable {
 	}
 
 	// create the image and blit onto screen
+	// don't need to adjust width and height because i cut and pasted them all at the same relative scale
 	init() {
+		this.rep = document.createElement('img');
+		this.rep.classList.add('vegetable');
+		this.rep.src = 'images/' + this.type + this.direction + '.png';
+		document.body.appendChild(this.rep);
 
+		// starts from left side
+		if (this.direction == 'Left') {
+			this.rep.style.left = '-300px';
+		} else {
+			this.rep.style.left = 1 + $(window).width() + 'px';
+		}
 	}
 }
 
@@ -195,6 +206,12 @@ function checkKeys() {
 
 let fpsInterval, then, startTime, elapsed;
 function startGame(fps) {
+	document.body.removeChild(document.getElementById('start'));
+	document.getElementById('sky').style.display = 'block';
+	document.getElementById('ground').style.display = 'block';
+	document.getElementById('player').style.display = 'block';
+	ground.style.top = base_y + player.rep.clientHeight + 'px';
+
     fpsInterval = 1000 / fps;
     then = Date.now();
     startTime = then;
@@ -216,4 +233,4 @@ function runGame() {
     }
 }
 
-startGame(60);
+//startGame(60);
