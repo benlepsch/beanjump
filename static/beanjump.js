@@ -226,7 +226,7 @@ class Vegetable {
 	init() {
 		this.rep = document.createElement('img');
 		this.rep.classList.add('vegetable');
-		this.rep.src = 'images/' + this.type + '.png';
+		this.rep.src = 'static/images/' + this.type + '.png';
 		document.body.appendChild(this.rep);
 
 		// starts from left side
@@ -430,7 +430,7 @@ class Vegetable {
 	summon(type, direction) {
 		this.rep = document.createElement('img');
 		this.rep.classList.add('vegetable');
-		this.rep.src = 'images/' + type + '.png';
+		this.rep.src = 'static/images/' + type + '.png';
 		if (direction == 'Right') {
 			this.rep.classList.add('mirror');
 		}
