@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width">
     <title>bean jump</title>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js'></script>
-    <link rel="icon" type="image" href="images/bean_icon.png">
+    <link rel="icon" type="image" href="{{ url_for('static', filename='images/bean_icon.png') }}">
     <link href="{{ url_for('static', filename='beanjump.css') }}" rel="stylesheet" type="text/css" />
   </head>
   <body style="overflow:hidden">
@@ -21,7 +21,6 @@
       <p id='papiinfo'>
         hi <br>
         this is a papi trampoline clone i made because i couldn't find the original game online<br>
-        for a less laggy version at 30fps instead of 60 click <a href='../beanjump-nolag/beanjump.html'>here</a><br>
         download the real papi trampoline for windows <a href='http://www.sunflat.net/windows/app/papitrampoline/'>here</a><br>
         <br><br>
         Default controls are the arrow keys (down to pause)<br>
@@ -34,7 +33,7 @@
     <div id='game_stuff'>
       <div id='sky' class='sky' style="display: none"></div>
       <div id='ground' class='ground' style="display: none"></div>
-      <img id='player' class='player' style="display: none" src='images/bean.png'>
+      <img id='player' class='player' style="display: none" src="{{ url_for('static', filename='images/bean.png') }}">
     </div>
 
     <script src="{{ url_for('static', filename='beanjump.js') }}"></script>
