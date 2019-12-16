@@ -611,6 +611,7 @@ function checkKeys() {
 function updateCookie(name, value) {
 	document.cookie = name + '=' + value + ';';
 }
+var socket;
 
 // read cookies for high score and keybinds, if they exist
 window.onload = function() {
@@ -633,6 +634,35 @@ window.onload = function() {
 	}
 }
 
+socket = io.connect('http://' + document.domain + ':' + location.port + '/beanjumpdata');
+
+function submitScore() {
+	let username = prompt('enter a username to submit with ur score: (alphanumeric characters only, 12 character limit)');
+
+	while (!username.match(/^[a-z0-9]+$/i) || username.length > 12) {
+
+		if (!username.match(/^[a-z0-9]+$/i)) {
+			username = prompt('alphanumeric only please');
+			continue;
+		}
+
+		if (username.length > 12) {
+			username = prompt('less than 12 characters please');
+			continue;
+		}
+
+	}
+
+	socket.emit('new score', [username, best_score]);
+}
+
+function requestUpdatedScores() {
+	socket.emit('get scores', []);
+}
+
+socket.on('update', (msg) => {
+	console.log(msg);
+});
 
 //runs the game at a specified fps
 //dont touch i dont know how it works

@@ -9,6 +9,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>bean jump</title>
+    <script src="https://cdn.socket.io/socket.io-1.0.0.js"></script>
 		<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js'></script>
     <link rel="icon" type="image" href="{{ url_for('static', filename='images/bean_icon.png') }}">
     <link href="{{ url_for('static', filename='beanjump.css') }}" rel="stylesheet" type="text/css" />
@@ -18,6 +19,8 @@
       <button id="start" onclick="startGame(60)">Start Game</button>
       <h1 id='recent'>Recent score: 0</h1>
       <h1 id='best'>Best score: 0</h1>
+      <button onclick="submitScore()">submit score</button>
+      <button onclick="requestUpdatedScores()">get new scores</button>
       <p id='papiinfo'>
         hi <br>
         this is a papi trampoline clone i made because i couldn't find the original game online<br>
