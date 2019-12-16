@@ -661,7 +661,16 @@ function requestUpdatedScores() {
 }
 
 socket.on('update', (msg) => {
-	console.log(msg);
+	document.getElementById('highscores').style.display = 'block';
+	if (msg.length > 5) {
+		for (let i = 0; i < msg.length; i++) {
+			document.getElementById('' + i).innerHTML = msg[i][0] + ': ' + msg[i][1];
+		}
+	} else {
+		for (let i = 0; i < msg.length; i++) {
+			document.getElementById('' + i).innerHTML = msg[i][0] + ': ' + msg[i][1];
+		}
+	}
 });
 
 //runs the game at a specified fps
