@@ -58,5 +58,16 @@ def get_scores(message):
     
     emit('update', sending)
 
+@socketio.on('find score', namespace='/beanjumpdata')
+def find_score(message):
+    sending = { 'username': message, 'highscore': 0, 'rank': 0 }
+    scores = Score.query.order_by(Score.score.desc()).all()
+    for i in range(len(scores)):
+        if scores[i].username == message:
+            sending['highscore'] = scores[i].score
+            sending['rank'] = i + 1
+            break
+    emit('found score', sending)
+
 if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=80)

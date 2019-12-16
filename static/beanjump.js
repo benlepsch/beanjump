@@ -677,6 +677,15 @@ socket.on('update', (msg) => {
 	}
 });
 
+function findRank() {
+	let username = prompt('enter the username to search for (capitals matter)');
+	socket.emit('find score', username);
+}
+
+socket.on('found score', (msg) => {
+	alert('user ' + msg.username + ' has a high score of ' + msg.highscore + ' and is ranked #' + msg.rank);
+});
+
 //runs the game at a specified fps
 //dont touch i dont know how it works
 
