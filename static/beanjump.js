@@ -690,6 +690,7 @@ socket.on('found score', (msg) => {
 //dont touch i dont know how it works
 
 let vm;
+let cheated;
 
 let fpsInterval, then, startTime, elapsed;
 function startGame(fps) {
@@ -702,6 +703,8 @@ function startGame(fps) {
 	document.body.removeChild(cabbage.rep);
 	document.body.removeChild(carrot.rep);
 	document.getElementById('menu_stuff').style.display = 'none';
+
+	cheated = false;
 
 	document.getElementById('sky').style.display = 'block';
 	document.getElementById('ground').style.display = 'block';
@@ -728,6 +731,10 @@ function runGame() {
 	}
 	now = Date.now();
     elapsed = now - then;
+
+	if (cheats) {
+		cheated = true;
+	}
 
 	checkKeys();
     if (elapsed > fpsInterval && unpaused) {
@@ -764,7 +771,7 @@ function runGame() {
 		let score = document.getElementsByClassName('score')[0];
 		score.innerHTML = 'Score: ' + player.score;
 		recent_score = player.score;
-		if (player.score > best_score) {
+		if (player.score > best_score && ! cheated) {
 			best_score = player.score;
 		}
     }
