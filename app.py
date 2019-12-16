@@ -38,7 +38,7 @@ def add_score(message):
 
     # make sure there's no exact duplicates
     for score in Score.query.all():
-        if score.username == username and score.score == score:
+        if score.username == message[0] and score.score == message[1]:
             return
 
     new = Score(username=message[0], score=message[1])
