@@ -632,6 +632,10 @@ window.onload = function() {
 			pause_key = parseInt(ka[3]);
 		}
 	}
+
+	alert('this website uses cookies to remember your high score and keybinds. if you\'re not ok with this, leave the website because you can\'t turn them off.');
+
+	requestUpdatedScores();
 }
 
 socket = io.connect('http://' + document.domain + ':' + location.port + '/beanjumpdata');
