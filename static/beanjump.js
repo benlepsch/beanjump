@@ -666,8 +666,8 @@ function requestUpdatedScores() {
 
 socket.on('update', (msg) => {
 	document.getElementById('highscores').style.display = 'block';
-	if (msg.length > 5) {
-		for (let i = 0; i < msg.length; i++) {
+	if (msg.length > 10) {
+		for (let i = 0; i < 10; i++) {
 			document.getElementById('' + i).innerHTML = msg[i][0] + ': ' + msg[i][1];
 		}
 	} else {

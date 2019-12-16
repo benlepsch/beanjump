@@ -36,6 +36,11 @@ def add_score(message):
     username = message[0]
     score = message[1]
 
+    # make sure there's no exact duplicates
+    for score in Score.query.all():
+        if score.username == username and score.score == score:
+            return
+
     new = Score(username=username, score=score)
     db.session.add(new)
     db.session.commit()
