@@ -41,7 +41,7 @@ def add_score(message):
         if score.username == username and score.score == score:
             return
 
-    new = Score(username=username, score=score)
+    new = Score(username=message[0], score=message[1])
     db.session.add(new)
     db.session.commit()
 
