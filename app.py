@@ -33,19 +33,19 @@ def beanjump():
 
 @socketio.on('new score', namespace='/beanjumpdata')
 def add_score(message):
-    username = message[0]
-    score = message[1]
-    adding = True
+    already = False
 
     # make sure there's no exact duplicates
     for score in Score.query.all():
         #print('checking duplicate: ' + score.username + ' and ' + message[0] + '\t' + str(score.score) + ' and ' + str(message[1]))
-        if score.username == message[0] and score.score == message[1]:
-            #print('found duplicate!')
-            adding = False
-            return
+        if score.username == message[0]:
+            already = True
+            new = Score(username=message[0], score=message[1])
+            db.session.delete(score)
+            db.session.add(new)
+            db.session.commit()
 
-    if adding:
+    if not already:
         new = Score(username=message[0], score=message[1])
         db.session.add(new)
         db.session.commit()
