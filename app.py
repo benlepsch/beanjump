@@ -39,9 +39,9 @@ def add_score(message):
 
     # make sure there's no exact duplicates
     for score in Score.query.all():
-        print('checking duplicate: ' + score.username + ' and ' + message[0] + '\t' + str(score.score) + ' and ' + str(message[1]))
+        #print('checking duplicate: ' + score.username + ' and ' + message[0] + '\t' + str(score.score) + ' and ' + str(message[1]))
         if score.username == message[0] and score.score == message[1]:
-            print('found duplicate!')
+            #print('found duplicate!')
             adding = False
             return
 
