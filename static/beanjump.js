@@ -200,9 +200,9 @@ class VegetableManager {
 		this.veggies[parseInt(id)].alive = false;
 		if (this.veggies[parseInt(id)].direction == 'Right') {
 			this.veggies[parseInt(id)].rep.classList.remove('mirror');
-			this.veggies[parseInt(id)].rep.classList.add('flippedMirror');
-		} else {
 			this.veggies[parseInt(id)].rep.classList.add('flipped');
+		} else {
+			this.veggies[parseInt(id)].rep.classList.add('flippedMirror');
 		}
 		this.veggies[parseInt(id)].rep.style.width = this.veggies[parseInt(id)].rep.clientWidth + 'px';
 		this.veggies[parseInt(id)].rep.style.height = this.veggies[parseInt(id)].rep.clientHeight * .8 + 'px';
