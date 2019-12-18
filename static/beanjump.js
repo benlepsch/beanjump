@@ -198,7 +198,7 @@ class VegetableManager {
 	// remove for veggies that get killed
 	kill(id) {
 		this.veggies[parseInt(id)].alive = false;
-		if (this.direction = 'Right') {
+		if (this.direction == 'Right') {
 			this.veggies[parseInt(id)].rep.classList.remove('mirror');
 			this.veggies[parseInt(id)].rep.classList.add('flippedMirror');
 		} else {
