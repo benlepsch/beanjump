@@ -30,6 +30,10 @@
     z-index: 92;
 }
 
+.flippedMirror {
+    transform: rotate(180deg) scaleX(-1);
+}
+
 .flipped {
     transform: rotate(180deg);
 }
