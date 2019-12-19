@@ -670,16 +670,18 @@ function requestUpdatedScores() {
 }
 
 socket.on('update', (msg) => {
-	document.getElementById('highscores').style.display = 'block';
-	if (msg.length > 10) {
-		for (let i = 0; i < 10; i++) {
-			document.getElementById('' + i).innerHTML = msg[i][0] + ': ' + msg[i][1];
-		}
-	} else {
-		for (let i = 0; i < msg.length; i++) {
-			document.getElementById('' + i).innerHTML = msg[i][0] + ': ' + msg[i][1];
-		}
+	let hsdiv = document.getElementById('highscores');
+	hsdiv.style.display = 'block';
+
+	let hs = document.getElementById('hslist');
+	hs.innerHTML = '';
+
+	for (let i = 0; i < msg.length; i++) {
+		let ns = document.createElement('li');
+		ns.innerHTML = msg[i][0] + ': ' + msg[i][1];
+		hs.appendChild(ns);
 	}
+	
 });
 
 function findRank() {
