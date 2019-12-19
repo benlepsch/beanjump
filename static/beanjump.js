@@ -701,6 +701,11 @@ let cheated;
 
 let fpsInterval, then, startTime, elapsed;
 function startGame(fps) {
+	document.body.style.overflow = 'hidden';
+
+	ground.style.width = $(window).width() + 'px';
+	sky.style.width = $(window).width() + 'px';
+
 	vm = new VegetableManager();
 	if (player == null) {
 		player = new Player('player');
@@ -785,6 +790,7 @@ function runGame() {
 }
 
 function reset() {
+	document.body.style.overflow = 'scroll';
 	let vml = vm.veggies.length;
 	for (let i = 0; i < vml; i++) {
 		vm.remove(0);
