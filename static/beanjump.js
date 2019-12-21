@@ -563,6 +563,17 @@ player.rep.style.top = base_y + 'px';
 
 let rebinding = null;
 
+function changeCrazymode() {
+	let c = document.getElementById('crazymode');
+	if (crazymode) {
+		crazymode = false;
+		c.innerHTML = 'Enable crazymode';
+	} else {
+		crazymode = true;
+		c.innerHTML = 'Disable crazymode';
+	}
+}
+
 function rebind(key) {
 	rebinding = key;
 }
