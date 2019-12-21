@@ -172,6 +172,9 @@ class VegetableManager {
 		// like
 		// depending on the time since the start of the game it will pick a random number of game ticks to loop thru until it spawns another veggie
 		// then when cooldown = 0 it spawns a veg and pick a new number
+		if (crazymode) {
+			return true;
+		}
 		if (this.cooldown <= 0) {
 			return true;
 		} else {
@@ -511,6 +514,7 @@ let base_y = Math.floor($(window).height()*2 /3);
 let recent_score = 0;
 let best_score = 0;
 let cheats = false;
+let crazymode = false;
 
 let unpaused = true;
 let lastPaused = new Date().getTime();
