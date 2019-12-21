@@ -172,9 +172,6 @@ class VegetableManager {
 		// like
 		// depending on the time since the start of the game it will pick a random number of game ticks to loop thru until it spawns another veggie
 		// then when cooldown = 0 it spawns a veg and pick a new number
-		if (crazymode) {
-			return true;
-		}
 		if (this.cooldown <= 0) {
 			return true;
 		} else {
@@ -321,16 +318,22 @@ class Vegetable {
 				let ftext = '';
 				p.jumpin = true;
 				p.chain ++;
-				if (p.chain > 20) {
-					p.score += this.score * 20;
-					ftext = p.chain + ' chain<br>' + this.score + 'x20';
-				} else {
-					if (p.chain > 1) {
-						ftext = p.chain + ' chain<br>' + this.score + 'x' + p.chain;
-					} else {
-						ftext = '' + this.score;
-					}
+				if (crazymode) {
+					crazymoded = true;
 					p.score += this.score * p.chain;
+					ftext = p.chain + 'chain<br>' + this.score + 'x' + p.chain;
+				} else {
+					if (p.chain > 20) {
+						p.score += this.score * 20;
+						ftext = p.chain + ' chain<br>' + this.score + 'x20';
+					} else {
+						if (p.chain > 1) {
+							ftext = p.chain + ' chain<br>' + this.score + 'x' + p.chain;
+						} else {
+							ftext = '' + this.score;
+						}
+						p.score += this.score * p.chain;
+					}
 				}
 
 				vm.kill(id);
@@ -515,6 +518,7 @@ let recent_score = 0;
 let best_score = 0;
 let cheats = false;
 let crazymode = false;
+let crazymoded = false;
 
 let unpaused = true;
 let lastPaused = new Date().getTime();
@@ -721,6 +725,7 @@ function startGame(fps) {
 	document.getElementById('menu_stuff').style.display = 'none';
 
 	cheated = false;
+	crazymoded = false;
 
 	document.getElementById('sky').style.display = 'block';
 	document.getElementById('ground').style.display = 'block';
@@ -787,7 +792,7 @@ function runGame() {
 		let score = document.getElementsByClassName('score')[0];
 		score.innerHTML = 'Score: ' + player.score;
 		recent_score = player.score;
-		if (player.score > best_score && ! cheated) {
+		if (player.score > best_score && ! cheated && ! crazymoded) {
 			best_score = player.score;
 		}
     }
